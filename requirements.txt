@@ -1,0 +1,26 @@
+# Node.js version
+node >= 14.0.0
+
+# NPM Dependencies (from package.json)
+express@^4.18.2
+mongoose@^8.0.0
+cors@^2.8.5
+body-parser@^1.20.2
+
+# Development Dependencies
+nodemon@^3.0.1
+
+# Azure Deployment Notes
+# - This application requires Node.js runtime
+# - MongoDB connection string should be set via MONGODB_URI environment variable
+# - Default port is 3000 (can be overridden with PORT environment variable)
+# - Ensure MongoDB is accessible from Azure (use Azure Cosmos DB with MongoDB API or MongoDB Atlas)
+
+# Installation Command
+# npm install
+
+# Start Command
+# node server.js
+
+# Dev Start Command
+# npm run dev
