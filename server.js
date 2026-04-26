@@ -127,20 +127,15 @@ app.get('/api/invoices/next-number', async (req, res) => {
 // Save Invoice
 app.post('/api/invoices', async (req, res) => {
     try {
-        // Get next invoice number from database (not counter)
-        const latestInvoice = await Invoice.findOne().sort({ 'customerDetails.taxInvoiceNo': -1 });
-        let nextNumber = 634; // Start from 632
-
-        if (latestInvoice && latestInvoice.customerDetails && latestInvoice.customerDetails.taxInvoiceNo) {
-            nextNumber = latestInvoice.customerDetails.taxInvoiceNo + 1;
-        }
+        // Use invoice number from client (user may have manually edited it)
+        const taxInvoiceNo = parseInt(req.body.taxInvoiceNo) || req.body.taxInvoiceNo;
 
         // Restructure data to match new schema
         const invoiceData = {
             customerDetails: {
                 to: req.body.customerName,
                 customerAddress: req.body.customerAddress,
-                taxInvoiceNo: nextNumber,
+                taxInvoiceNo: taxInvoiceNo,
                 taxInvoiceDate: req.body.taxInvoiceDate,
                 challanNo: req.body.challanNo,
                 challanDate: req.body.challanDate,
@@ -178,7 +173,7 @@ app.post('/api/invoices', async (req, res) => {
             success: true,
             message: 'Invoice saved successfully',
             invoiceId: invoice._id,
-            taxInvoiceNo: nextNumber
+            taxInvoiceNo: taxInvoiceNo
         });
     } catch (error) {
         res.status(500).json({
