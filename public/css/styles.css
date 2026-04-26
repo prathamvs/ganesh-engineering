@@ -383,9 +383,11 @@ body {
     }
 
     #editInvoiceNoBtn {
-        padding: 10px 16px;
+        padding: 10px 16px !important;
         font-size: 18px;
-        flex-shrink: 0;
+        flex-shrink: 0 !important;
+        width: auto !important;
+        margin: 0 !important;
     }
 
     .item-row {
